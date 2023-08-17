@@ -46,7 +46,7 @@ export const codePlugin = (md: MarkdownIt, options: DemoblockPluginOptions) => {
       const content = token.content.replace('<client-only>', '').replace('</client-only>', '')
       return `
         <template #highlight>
-          <div v-pre class="language-${lang} vp-adaptive-theme">
+          <div v-pre class="language-${lang}">
             <span class="lang">${lang}</span>
             ${md.options.highlight?.(content, lang, '') || ''}
           </div>
