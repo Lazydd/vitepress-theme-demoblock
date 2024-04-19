@@ -22,7 +22,13 @@ export default defineConfig({
 
     config: (md) => {
       md.use(demoblockPlugin, {
-        customClass: 'demoblock-custom'
+        customClass: 'demoblock-custom',
+        // onCopySuccess: (instance, copySuccess) => {
+        //   instance.appContext.config.globalProperties.message.success(copySuccess)
+        // },
+        // onCopyError: (instance, copyError) => {
+        //   instance.appContext.config.globalProperties.message.error(copyError)
+        // }
       })
     }
   },
@@ -92,6 +98,10 @@ export default defineConfig({
             {
               text: '第三方',
               link: '/guide/other'
+            },
+            {
+              text: '包含 markdown 文件',
+              link: '/guide/include'
             }
           ]
         }

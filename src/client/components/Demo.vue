@@ -1,7 +1,7 @@
 <template>
   <ClientOnly>
     <div ref="demoblock" :class="['demoblock', blockClass, customClass ? customClass : '']">
-      <div class="demoblock-view">
+      <div class="demoblock-view vp-raw">
         <slot />
       </div>
       <div class="demoblock-divider demoblock-divider--horizontal"></div>
@@ -38,7 +38,7 @@
 
 <script>
 import { useRoute, useData } from 'vitepress'
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, getCurrentInstance, onMounted } from 'vue'
 import { useClipboard, isClient } from '@vueuse/core'
 import { usePlayground } from '../../hooks'
 import message from './message'
@@ -62,15 +62,20 @@ export default {
   },
   props: {
     customClass: String,
-    sourceCode: String
+    sourceCode: String,
+    options: String // JSON.stringify
   },
-  setup(props) {
+  setup(props, ctx) {
     // ====================== Hooks ======================
     const { copy } = useClipboard()
     const data = useData()
     const route = useRoute()
 
     // ====================== Lifecycle ======================
+    let instance
+    onMounted(() => {
+      instance = getCurrentInstance()
+    })
     watch(
       () => route.path,
       path => {
@@ -125,11 +130,22 @@ export default {
 
     // Copy
     const onCopy = async () => {
+      const options = JSON.parse(props.options)
       try {
         copy(props.sourceCode)
-        message.success(locale.value['copy-success'])
+        if (options.onCopySuccess) {
+          const onCopySuccess = eval(options.onCopySuccess)
+          onCopySuccess(instance, locale.value['copy-success'])
+        } else {
+          message.success(locale.value['copy-success'])
+        }
       } catch (err) {
-        message.error(locale.value['copy-error'])
+        if (options.onCopyError) {
+          const onCopyError = eval(options.onCopyError)
+          onCopyError(instance, locale.value['copy-error'])
+        } else {
+          message.error(locale.value['copy-error'])
+        }
       }
     }
 

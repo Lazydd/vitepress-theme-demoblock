@@ -13,9 +13,9 @@
 [查看Demo](https://xinlei3166.github.io/vitepress-demo/)
 
 ## 提示
-由于 `Vitepress` 版本更新频繁，目前支持版本为 `1.0.0-beta.3`。
+由于 `Vitepress` 版本更新频繁，目前支持版本为 `1.0.1`。
 
-`Vue` 支持版本为 `3.3.4`。
+`Vue` 支持版本为 `3.4.21`。
 
 ## 安装
 
@@ -173,12 +173,10 @@ html.dark {
 配置主题色
 ```css
 :root {
-  --vp-c-brand: #646cff;
-  --vp-c-brand-light: #747bff;
-  --vp-c-brand-lighter: #9499ff;
-  --vp-c-brand-lightest: #bcc0ff;
-  --vp-c-brand-dark: #535bf2;
-  --vp-c-brand-darker: #454ce1;
+  --vp-c-brand-1: hsl(237, 100%, 70%);
+  --vp-c-brand-2: hsl(237, 100%, 73%);
+  --vp-c-brand-3: hsl(237, 100%, 70%);
+  --vp-c-brand-soft: hsl(237, 100%, 70%, 14%);
 }
 ```
 
